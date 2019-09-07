@@ -49,6 +49,10 @@ class View : public QGraphicsView {
     void toggleSim();
     void setHorizon(int);
     void setFinaltime(int);
+    void setAccelMax(int);
+    void setThetaMax(int);
+    void setQmax(int);
+    void setRfRelax(int);
 
     void updateViewDronePos(float,float,float);
     void updateViewPuckPos(float,float,float);

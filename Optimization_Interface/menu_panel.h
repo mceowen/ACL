@@ -53,7 +53,17 @@ class MenuPanel : public QFrame {
 //    QGroupBox *opt_layout;
     QLabel *opt_finaltime_label_;
     QLabel *opt_horizon_label_;
-    double_t finaltime_init_ = 5; //include the right header for double_t??
+    QLabel *opt_a_max_label_;
+    QLabel *opt_theta_max_label_;
+    QLabel *opt_q_max_label_;
+    QLabel *opt_rfrelax_label_;
+
+    //Note: these are scaled by a number (i.e. 10) b/c they are divided by that num in view.cpp setFinaltime etc fxns
+    double_t finaltime_init_ = 3*10; //SKOI changed from 5s for testing purposes
+    double_t a_max_init_ = 15*1; //m/s^2
+    double_t theta_max_init_ = 60*1; //deg
+    double_t q_max_init_ = 0.0*1;
+    double_t rfrelax_init_ = 1000/10;
 //    QPushButton *opt_horizon_minus;
 //    QPushButton *opt_horizon_plus;
 //    QPushButton *opt_finaltime_minus;
@@ -61,6 +71,10 @@ class MenuPanel : public QFrame {
 
     QSlider *opt_finaltime_slider_;
     QSlider *opt_horizon_slider_;
+    QSlider *opt_a_max_slider_;
+    QSlider *opt_theta_max_slider_;
+    QSlider *opt_q_max_slider_;
+    QSlider *opt_rfrelax_slider_;
 
  private:
     void initialize();
@@ -76,6 +90,10 @@ class MenuPanel : public QFrame {
     void initializeSimButton();
     void initializeFinaltimeSlider();
     void initializeHorizonSlider();
+    void initializeAmaxSlider();
+    void initializeThetaMaxSlider();
+    void initializeQMaxSlider();
+    void initializeRfrelaxSlider();
 };
 
 }  // namespace interface

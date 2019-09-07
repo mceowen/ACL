@@ -57,7 +57,7 @@ void comm::rx_trajectory(const packet::traj3dof* data) {
 //    ser_data->serialize_content(buffer);//->serialize(buffer);
 //    free(buffer);
 //    buffer = nullptr;
-//    mp_udp->writeDatagram(buff,ser_data.size(),QHostAddress("192.168.1.101"),6000);
+    mp_udp->writeDatagram(buff,ser_data.size(),QHostAddress("192.168.1.101"),6000);
 //    mp_udp->writeDatagram(buff,ser_data.size(),QHostAddress("192.168.1.102"),6000);
     mp_udp->writeDatagram(buff,ser_data.size(),QHostAddress("192.168.1.103"),6000);
 //    mp_udp->writeDatagram(buff,ser_data.size(),QHostAddress("192.168.1.104"),6000);

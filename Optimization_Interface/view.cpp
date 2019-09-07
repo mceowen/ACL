@@ -173,6 +173,26 @@ void View::initialize() {
     connect(this->menu_panel_->opt_finaltime_slider_, SIGNAL(valueChanged(int)),
             this, SLOT(setFinaltime(int)));
 
+    connect(this->menu_panel_->opt_a_max_slider_, SIGNAL(valueChanged(int)),
+            this, SLOT(setAccelMax(int)));
+
+    connect(this->menu_panel_->opt_theta_max_slider_, SIGNAL(valueChanged(int)),
+            this, SLOT(setThetaMax(int)));
+
+    connect(this->menu_panel_->opt_q_max_slider_, SIGNAL(valueChanged(int)),
+            this, SLOT(setQMax(int)));
+
+    connect(this->menu_panel_->opt_rfrelax_slider_, SIGNAL(valueChanged(int)),
+            this, SLOT(setRfRelax(int)));
+
+    /* SKOI DEMO UPDATE
+    Connect these:
+    void setAccelMax(int);
+    void setThetaMax(int);
+    void setQmax(int);
+    void setRfRelax(int);
+    */
+
     // Connect execute button
     connect(this->menu_panel_->exec_button_, SIGNAL(clicked(bool)),
             this, SLOT(execute()));
@@ -385,10 +405,41 @@ void View::toggleSim() {
 
 
 void View::setFinaltime(int _finaltime) {
-    float finaltime = _finaltime/10.0f;
+    double finaltime = _finaltime/10.0;
     this->controller_->setFinaltime(finaltime);
-    this->menu_panel_->opt_finaltime_label_->setText("T=" + QString::number(finaltime));
+    this->menu_panel_->opt_finaltime_label_->setText("T = " + QString::number(finaltime) + "s");
 }
+
+void View::setAccelMax(int _accelmax) {
+    double a_max = _accelmax*1.0;
+    this->controller_->setAccelMax(a_max);
+    this->menu_panel_->opt_a_max_label_->setText("a_max = " + QString::number(a_max) + "m/s^2");
+}
+
+void View::setThetaMax(int _thetamax) {
+    double theta_max = _thetamax*1.0;
+    this->controller_->setThetaMax(theta_max);
+    this->menu_panel_->opt_theta_max_label_->setText("theta_max = " + QString::number(theta_max) + "degrees");
+}
+
+void View::setQmax(int _qmax) {
+    double q_max = _qmax*1.0;
+    this->controller_->setQmax(q_max);
+    this->menu_panel_->opt_q_max_label_->setText("q_max = " + QString::number(q_max));
+}
+
+void View::setRfRelax(int _rfrelax){
+    double rfrelax = _rfrelax*10.0;
+    this->controller_->setRfRelax(rfrelax);
+    this->menu_panel_->opt_rfrelax_label_->setText("rfrelax = " + QString::number(rfrelax));
+}
+
+/*
+void setAccelMax(int);
+void setThetaMax(int);
+void setQmax(int);
+void setRfRelax(int);
+*/
 
 void View::setHorizon(int horizon) {
     this->controller_->setHorizonLength(horizon);

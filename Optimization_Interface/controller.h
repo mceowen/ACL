@@ -59,6 +59,10 @@ class Controller : public QObject {
     void execute();
 
     void setFinaltime(double_t);
+    void setAccelMax(double);
+    void setThetaMax(double);
+    void setQmax(double);
+    void setRfRelax(double);
     void setHorizonLength(uint32_t);
     void updateFinalPosition(QPointF *);
     double_t getTimeInterval();
@@ -74,6 +78,10 @@ class Controller : public QObject {
 
     // TODO: make a proper class for these parameters
     double_t finaltime_;
+    double a_max_;
+    double theta_max_;
+    double q_max_;
+    double rfrelax_;
     uint32_t horizon_length_ = MAX_HORIZON;
     uint32_t drone_port_ = 8000;
     uint32_t puck_port_ = 8001;

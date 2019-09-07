@@ -38,6 +38,11 @@ namespace interface {
 Controller::Controller(Canvas *canvas, MenuPanel *menupanel) {
     this->canvas_ = canvas;
     this->finaltime_ = menupanel->finaltime_init_; //initialized ctrller final time to that set by menupanel
+    this->a_max_ = menupanel->a_max_init_;
+    this->theta_max_= menupanel->theta_max_init_;
+    this->q_max_ = menupanel->q_max_init_;
+    this->rfrelax_ = menupanel->rfrelax_init_;
+
     this->indoor_ = canvas->indoor_;
     this->model_ = new ConstraintModel(MAX_OBS, MAX_CPOS);
 
@@ -241,6 +246,26 @@ void Controller::setFinaltime(double_t finaltime) {
     this->compute();
 }
 
+void Controller::setAccelMax(double a_max) {
+    this->a_max_ = a_max;
+    this->compute();
+}
+
+void Controller::setThetaMax(double theta_max) {
+    this->theta_max_ = theta_max;
+    this->compute();
+}
+
+void Controller::setQmax(double q_max) {
+    this->q_max_ = q_max;
+    this->compute();
+}
+
+void Controller::setRfRelax(double rf_relax){
+    this->rfrelax_ = rf_relax;
+    this->compute();
+}
+
 void Controller::setHorizonLength(uint32_t horizon) {
     this->horizon_length_ = horizon;
     qDebug() << "Horizon length: " << horizon;
@@ -315,9 +340,9 @@ void Controller::compute(QVector<QPointF *> *trajectory) {
     P.g[1] = 0.0;
     P.g[2] = 0.0;
     P.a_min = 5.0;
-    P.a_max = 15.0;
-    P.theta_max = 40.0*DEG2RAD;
-    P.q_max = 0.0;
+    P.a_max = this->a_max_; //15.0;
+    P.theta_max = this->theta_max_*DEG2RAD;//40.0*DEG2RAD;
+    P.q_max = this->q_max_; //0.0;
 
     P.max_iter = 10;
     P.Delta_i = 100.0;
@@ -328,7 +353,7 @@ void Controller::compute(QVector<QPointF *> *trajectory) {
     P.rho_1 = 0.25;
     P.rho_2 = 0.90;
     P.rirelax = 1000;
-    P.rfrelax = 1000;
+    P.rfrelax = this->rfrelax_; //1000;
 
 
     //SKYEFLY// fly.I = ....

@@ -89,6 +89,10 @@ void MenuPanel::initialize() {
 
     this->initializeHorizonSlider();
     this->initializeFinaltimeSlider();
+    this->initializeAmaxSlider();
+    this->initializeThetaMaxSlider();
+    this->initializeQMaxSlider();
+    this->initializeRfrelaxSlider();
 
     // Create simulate button
     this->initializeSimButton();
@@ -262,9 +266,8 @@ void MenuPanel::initializeFinaltimeSlider() {
     this->opt_finaltime_slider_->setSizePolicy(QSizePolicy::Expanding,
                                       QSizePolicy::Minimum);
     this->opt_finaltime_slider_->setTickInterval(1);
-    this->opt_finaltime_slider_->setTickPosition(QSlider::TicksAbove);
-    this->opt_finaltime_slider_->setMinimum(20);
-    this->opt_finaltime_slider_->setMaximum(200);
+    this->opt_finaltime_slider_->setMinimum(2*10);
+    this->opt_finaltime_slider_->setMaximum(5*10); //SKOI changed from 20s for testing purposes
     this->opt_finaltime_slider_->setValue(this->finaltime_init_); //make sure this points to the right member
     this->opt_finaltime_slider_->setToolTip(tr("Set final time"));
 
@@ -277,6 +280,122 @@ void MenuPanel::initializeFinaltimeSlider() {
     this->menu_->layout()->addWidget(this->opt_finaltime_slider_);
     this->menu_->layout()->setAlignment(wid, Qt::AlignBottom); //this->opt_finaltime_slider_, Qt::AlignBottom);
 }
+
+void MenuPanel::initializeAmaxSlider(){
+    QWidget *wid = new QWidget(this->menu_);
+    wid->setLayout(new QHBoxLayout(wid));
+    wid->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    this->opt_a_max_slider_ = new QSlider(Qt::Vertical, this->menu_);
+    this->opt_a_max_slider_->setSizePolicy(QSizePolicy::Expanding,
+                                      QSizePolicy::Minimum);
+
+    this->opt_a_max_slider_->setTickInterval(1);
+    this->opt_a_max_slider_->setMinimum(10*1);
+    this->opt_a_max_slider_->setMaximum(30*1);
+    this->opt_a_max_slider_->setValue(this->a_max_init_);
+    this->opt_a_max_slider_->setToolTip(tr("Set a_max"));
+
+    this->opt_a_max_label_ = new QLabel();
+    wid->layout()->addWidget(this->opt_a_max_slider_);
+    wid->layout()->addWidget(this->opt_a_max_label_);
+
+    this->menu_->layout()->addWidget(this->opt_a_max_label_);
+    this->menu_->layout()->addWidget(this->opt_a_max_slider_);
+    this->menu_->layout()->setAlignment(wid, Qt::AlignBottom);
+}
+
+void MenuPanel::initializeThetaMaxSlider() {
+    QWidget *wid = new QWidget(this->menu_);
+    wid->setLayout(new QHBoxLayout(wid));
+    wid->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    this->opt_theta_max_slider_ = new QSlider(Qt::Vertical, this->menu_);
+    this->opt_theta_max_slider_->setSizePolicy(QSizePolicy::Expanding,
+                                      QSizePolicy::Minimum);
+
+    this->opt_theta_max_slider_->setTickInterval(10);
+    this->opt_theta_max_slider_->setMinimum(20*1);
+    this->opt_theta_max_slider_->setMaximum(80*1);
+    this->opt_theta_max_slider_->setValue(this->theta_max_init_);
+    this->opt_theta_max_slider_->setToolTip(tr("Set theta_max"));
+
+    this->opt_theta_max_label_ = new QLabel();
+    wid->layout()->addWidget(this->opt_theta_max_slider_);
+    wid->layout()->addWidget(this->opt_theta_max_label_);
+
+    this->menu_->layout()->addWidget(this->opt_theta_max_label_);
+    this->menu_->layout()->addWidget(this->opt_theta_max_slider_);
+    this->menu_->layout()->setAlignment(wid, Qt::AlignBottom);
+
+}
+
+void MenuPanel::initializeQMaxSlider() {
+    QWidget *wid = new QWidget(this->menu_);
+    wid->setLayout(new QHBoxLayout(wid));
+    wid->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    this->opt_q_max_slider_= new QSlider(Qt::Vertical, this->menu_);
+    this->opt_q_max_slider_->setSizePolicy(QSizePolicy::Expanding,
+                                      QSizePolicy::Minimum);
+
+    this->opt_q_max_slider_->setTickInterval(1);
+    this->opt_q_max_slider_->setMinimum(0);
+    this->opt_q_max_slider_->setMaximum(1*1);
+    this->opt_q_max_slider_->setValue(this->q_max_init_);
+    this->opt_q_max_slider_->setToolTip(tr("Set q_max"));
+
+    this->opt_q_max_label_ = new QLabel();
+    wid->layout()->addWidget(this->opt_q_max_slider_);
+    wid->layout()->addWidget(this->opt_q_max_label_);
+
+    this->menu_->layout()->addWidget(this->opt_q_max_label_);
+    this->menu_->layout()->addWidget(this->opt_q_max_slider_);
+    this->menu_->layout()->setAlignment(wid, Qt::AlignBottom);
+
+
+}
+
+void MenuPanel::initializeRfrelaxSlider() {
+    QWidget *wid = new QWidget(this->menu_);
+    wid->setLayout(new QHBoxLayout(wid));
+    wid->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+    this->opt_rfrelax_slider_= new QSlider(Qt::Vertical, this->menu_);
+    this->opt_rfrelax_slider_->setSizePolicy(QSizePolicy::Expanding,
+                                      QSizePolicy::Minimum);
+
+    //note this is different
+    this->opt_rfrelax_slider_->setTickInterval(100);
+    this->opt_rfrelax_slider_->setMinimum(50/10); //note:this is multiplied by 10
+    this->opt_rfrelax_slider_->setMaximum(2000/10);
+    this->opt_rfrelax_slider_->setValue(this->rfrelax_init_);
+    this->opt_rfrelax_slider_->setToolTip(tr("Set rfrelax"));
+
+    this->opt_rfrelax_label_ = new QLabel();
+    wid->layout()->addWidget(this->opt_rfrelax_slider_);
+    wid->layout()->addWidget(this->opt_rfrelax_label_);
+
+    this->menu_->layout()->addWidget(this->opt_rfrelax_label_);
+    this->menu_->layout()->addWidget(this->opt_rfrelax_slider_);
+    this->menu_->layout()->setAlignment(wid, Qt::AlignBottom);
+
+}
+/* SKOI DEMO UPDATE
+Initialize these:
+QSlider *opt_a_max_slider_;
+QSlider *opt_theta_max_slider_;
+QSlider *opt_q_max_slider_;
+QSlider *opt_rfrelax_slider_;
+
+to use these:
+double_t finaltime_init_ = 5; //include the right header for double_t??
+double_t a_max_init_ = 15; //m/s^2
+double_t theta_max_init_ = 60; //deg
+double_t q_max_init_ = 0.0;
+double_t rfrelax_init_ = 1000;
+*/
+
 void MenuPanel::initializeExecButton() {
     this->exec_button_ = new QPushButton("Exec", this->menu_);
     this->exec_button_->setToolTip(tr("Execute optimization with constraints"));
