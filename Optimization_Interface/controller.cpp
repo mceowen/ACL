@@ -69,6 +69,7 @@ Controller::Controller(Canvas *canvas, MenuPanel *menupanel) {
     this->puck_graphic_ = new PointGraphicsItem(this->model_->puck_pos_->at(0),
                                                 nullptr,
                                                 this->indoor_?4:16);
+
     this->puck_graphic_->setMarker(1);
     this->canvas_->addItem(this->puck_graphic_);
 
@@ -406,10 +407,13 @@ void Controller::compute(QVector<QPointF *> *trajectory) {
     // OUTPUT VIOLATIONS: initial and final pos violation
     accum = pow(O.r_f_relax[0],2) + pow(O.r_f_relax[1],2) + pow(O.r_f_relax[2],2);
 
+    qDebug() << "Accum value: " << accum;
+
     if(accum > this->feasible_tol_) {
         this->valid_path_ = false;
         this->path_graphic_->setColor(QColor(Qt::red));
         qDebug() << "Increase final time!";
+        qDebug() << "Feasible tolerance = " << this->feasible_tol_ << " has been violated by accum = " << accum;
 
     } else {
         this->valid_path_ = true;
